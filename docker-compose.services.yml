@@ -1,0 +1,23 @@
+version: '3.7'
+
+networks:
+  orders:
+    name: orders
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: orders-mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: orders
+      MYSQL_USER: orders
+      MYSQL_PASSWORD: orders
+    volumes:
+      - /opt/docker/podorozhnyk/orders/mysql:/var/lib/mysql:delegated
+    networks:
+      - orders
+    ports:
+      - "8952:3306"
+    restart: unless-stopped

@@ -1,0 +1,9 @@
+###> ide ###
+.idea/
+###< ide ###
+
+###> docker ###
+/docker-compose.override.yml
+###< docker ###
+
+vendor/

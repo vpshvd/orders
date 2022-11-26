@@ -1,0 +1,21 @@
+#orders-chart-container {
+    min-width: 640px;
+    width: 30%;
+    height: auto;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+}
+
+#datepicker {
+    margin-bottom: 20px;
+}
+
+.container {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

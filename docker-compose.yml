@@ -1,0 +1,43 @@
+version: '3.7'
+
+networks:
+  orders:
+    name: orders
+    external: true
+  services:
+    name: services
+    external: true
+
+services:
+  php:
+    container_name: orders-php
+    image: ${HUB}/php:${TAG}
+    build:
+      context: .
+      target: php
+    env_file:
+      - .env
+    volumes:
+      - .:/application:delegated
+    networks:
+      - orders
+      - services
+    restart: unless-stopped
+
+  nginx:
+    container_name: orders-nginx
+    image: ${HUB}/nginx:${TAG}
+    build:
+      context: .
+      target: nginx
+    depends_on:
+      - php
+    volumes:
+      - ./public:/application/public:delegated
+      - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf:delegated
+    ports:
+      - "8950:80"
+    networks:
+      - orders
+      - services
+    restart: unless-stopped
