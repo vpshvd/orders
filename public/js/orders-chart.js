@@ -1,21 +1,21 @@
 function draw(drawData) {
     const _date = [];
-    const _count = [];
+    const _count_not_completed = [];
     const _count_completed = [];
     for (const i in drawData) {
         _date.push(drawData[i].date);
-        _count.push(drawData[i].count);
+        _count_not_completed.push(drawData[i].count - drawData[i].count_completed);
         _count_completed.push(drawData[i].count_completed);
     }
     const chartData = {
         labels: _date,
         datasets: [
             {
-                label: "ВСЕГО",
+                label: "НЕ ВЫПОЛНЕНО",
                 fill: false,
                 lineTension: 0.1,
                 backgroundColor: "rgba(255, 45, 85, 0.75)",
-                data: _count,
+                data: _count_not_completed,
                 order: 2,
             },
             {
@@ -34,6 +34,9 @@ function draw(drawData) {
         data: chartData,
         options: {
             plugins: {
+                tooltip: {
+                    mode: 'index'
+                },
                 title: {
                     display: true,
                     text: 'Заказы'
@@ -45,10 +48,13 @@ function draw(drawData) {
             },
             scales: {
                 x: {
-                    stacked: true
+                    stacked: true,
+                    grid: {
+                        display: false,
+                    }
                 },
                 y: {
-                    stacked: false
+                    stacked: true,
                 }
             }
         }
@@ -74,12 +80,21 @@ $(document).ready(function () {
     $("#endDate").datepicker("setDate", oneMonthAhead);
 
     // first time chart rendering
+    const groups = {
+        days: 'По дням',
+        weeks: 'По неделям',
+        months: 'По месяцам'
+    };
+
     if (Chart.getChart("orders-chart-canvas") === undefined) {
         const formData = {
             startDate: oneMonthAgo.toDateString(),
             endDate: oneMonthAhead.toDateString(),
-            groupBy: 'По дням'
+            groupBy: groups.days
         }
+        $("#days").val(groups.days).text(groups.days).prop('selected', true);
+        $("#weeks").val(groups.weeks).text(groups.weeks);
+        $("#months").val(groups.months).text(groups.months);
         $.post('orders_query.php', formData).done(function (data) {
             draw(data)
         })

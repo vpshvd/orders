@@ -46,12 +46,11 @@
                     WHERE o2.status = 5
                       AND c2.phone != '380737771913'
                       AND YEARWEEK(o2.created_at, 1) = YEARWEEK(o.created_at, 1)
-                      AND YEAR(o2.created_at) = YEAR(o.created_at)
                     ) count_completed
             FROM checkout_order o
                      JOIN checkout_order_client c ON c.order_id = o.id
             WHERE c.phone != '380737771913' 
-              AND YEARWEEK(o.created_at, 1) >= YEARWEEK('$startDate', 1) 
+              AND YEARWEEK(o.created_at, 1) >= YEARWEEK('$startDate', 1)
               AND YEARWEEK(o.created_at, 1) <= YEARWEEK('$endDate', 1)
             GROUP BY YEARWEEK(o.created_at, 1) ORDER BY YEARWEEK(o.created_at, 1)
             MYSQL;

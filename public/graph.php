@@ -6,13 +6,13 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Orders graph</title>
-    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="icon" type="image/png" href="favicon.png"/>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/jquery-ui.css">
 </head>
 <body>
 <div class="container">
-    <form method="POST" action="orders_query.php" id="datepicker">
+    <form method="POST" action="./orders_query.php" id="datepicker">
         Период&nbsp;&nbsp;
         <label for="startDate"></label>
         <input type="text"
@@ -26,9 +26,9 @@
                id="endDate">
         <label for="groupBy"></label>
         <select name="groupBy" id="groupBy" autocomplete="off">
-            <option>По дням</option>
-            <option>По неделям</option>
-            <option>По месяцам</option>
+            <option id="days"></option>
+            <option id="weeks"></option>
+            <option id="months"></option>
         </select>
     </form>
     <div id="orders-chart-container">
