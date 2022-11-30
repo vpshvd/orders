@@ -14,7 +14,7 @@ function draw(drawData) {
                 label: "НЕ ВЫПОЛНЕНО",
                 fill: false,
                 lineTension: 0.1,
-                backgroundColor: "rgba(255, 45, 85, 0.75)",
+                backgroundColor: "#f44336",
                 data: _count_not_completed,
                 order: 2,
             },
@@ -22,7 +22,7 @@ function draw(drawData) {
                 label: "ВЫПОЛНЕНО",
                 fill: false,
                 lineTension: 0.1,
-                backgroundColor: "rgba(48, 209, 88, 0.75)",
+                backgroundColor: "#4caf50",
                 data: _count_completed,
                 order: 1,
             }
@@ -95,8 +95,8 @@ $(document).ready(function () {
         $("#days").val(groups.days).text(groups.days).prop('selected', true);
         $("#weeks").val(groups.weeks).text(groups.weeks);
         $("#months").val(groups.months).text(groups.months);
-        $.post('orders_query.php', formData).done(function (data) {
-            draw(data)
+        $.post('./orders_query.php', formData).done(function (data) {
+            draw(data);
         })
     }
 
@@ -107,7 +107,7 @@ $(document).ready(function () {
             endDate: $("#endDate").val(),
             groupBy: $("#groupBy").val()
         };
-        $.post('orders_query.php', formData).done(function (data) {
+        $.post('./orders_query.php', formData).done(function (data) {
             Chart.getChart("orders-chart-canvas").destroy();
             draw(data)
         })
